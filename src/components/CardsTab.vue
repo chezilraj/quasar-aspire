@@ -8,8 +8,8 @@
     <q-card>
       <q-tab-panels v-model="tab">
         <q-tab-panel name="my-card">
-          <div class="row">
-            <div class="col col-px">
+          <div class="row card-tabs__row">
+            <div class="col col-px card-tabs__bg-blue">
               <CardsCarousel />
               <CardsActions />
             </div>
@@ -48,16 +48,39 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import '~src/css/styleguide/headings.scss';
 
+.card-tabs {
+  &__row {
+    @media screen and (max-width: 767px) {
+      flex-direction: column;
+    }
+  }
+  &__bg-blue {
+    @media screen and (max-width: 767px) {
+      background: #0c365a;
+    }
+  }
+  &__wrapper {
+    @media screen and (max-width: 767px) {
+      background: #0c365a;
+    }
+  }
+}
 .q-card {
   border-radius: 8px;
   box-shadow: none;
   filter: drop-shadow(0 2px 12px #00000014);
 }
+
 .q-tab-panel {
-  padding-top: 40px;
+  padding-top: 0px;
   padding-bottom: 40px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 0px;
+  padding-right: 0px;
+  @media screen and (min-width: 768px) {
+    padding-top: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }
 .q-tab {
   flex: 0 0 auto;
@@ -69,8 +92,12 @@ export default defineComponent({
   }
 }
 .col-px {
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 0px;
+  padding-right: 0px;
+  @media screen and (min-width: 768px) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }
 </style>
 
@@ -78,13 +105,19 @@ export default defineComponent({
 .q-tab {
   min-height: 34px;
   &__label {
-    color: rgba(34, 34, 34, 0.3);
+    color: #fff;
     text-transform: initial;
+    @media screen and (min-width: 768px) {
+      color: rgba(34, 34, 34, 0.3);
+    }
   }
   &--active {
     .q-tab__label {
       font-weight: 600;
-      color: rgba(34, 34, 34, 1);
+      color: #fff;
+      @media screen and (min-width: 768px) {
+        color: rgba(34, 34, 34, 1);
+      }
     }
   }
 
@@ -93,6 +126,11 @@ export default defineComponent({
   }
   &__indicator {
     border: 1px solid #23cefd;
+  }
+}
+.q-tabs__content {
+  @media screen and (max-width: 767px) {
+    padding-left: 24px;
   }
 }
 </style>

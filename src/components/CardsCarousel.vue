@@ -1,5 +1,8 @@
 <template>
   <div class="cards__carousel">
+    <div class="cards__show-number">
+      <q-icon name="icon-remove_red_eye-24px" />Show card number
+    </div>
     <q-carousel
       v-model="slide"
       swipeable
@@ -11,7 +14,7 @@
     >
       <q-carousel-slide :name="1" class="column no-wrap">
         <div class="row justify-start items-center no-wrap">
-          <div class="card">
+          <div class="card green">
             <div class="card__logo">
               <q-icon name="icon-Aspire-Logo" />
             </div>
@@ -49,7 +52,7 @@
       </q-carousel-slide>
       <q-carousel-slide :name="2" class="column no-wrap">
         <div class="row justify-start items-center no-wrap">
-          <div class="card">
+          <div class="card blue">
             <div class="card__logo">
               <q-icon name="icon-Aspire-Logo" />
             </div>
@@ -87,7 +90,7 @@
       </q-carousel-slide>
       <q-carousel-slide :name="3" class="column no-wrap">
         <div class="row justify-start items-center no-wrap">
-          <div class="card">
+          <div class="card pink">
             <div class="card__logo">
               <q-icon name="icon-Aspire-Logo" />
             </div>
@@ -142,6 +145,13 @@ export default {
 <style lang="scss" scoped>
 @import '~src/css/styleguide/headings.scss';
 
+.q-carousel {
+  @media screen and (max-width: 767px) {
+    background: #0c365a;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
 .q-carousel__slide {
   padding: 0;
 }
@@ -173,9 +183,23 @@ export default {
 .card {
   width: 100%;
   height: 248px;
-  background: #01d167;
   border-radius: 16px;
   padding: 27px;
+  @media screen and (max-width: 767px) {
+    overflow: hidden;
+  }
+
+  &.green {
+    background: #01d167;
+  }
+
+  &.blue {
+    background: #536dff;
+  }
+
+  &.pink {
+    background: #c71585;
+  }
 
   &__logo {
     display: flex;
@@ -249,6 +273,21 @@ export default {
 </style>
 <style lang="scss">
 .cards {
+  &__show-number {
+    margin-bottom: 12px;
+    color: #01d167;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    @media screen and (max-width: 767px) {
+      padding-right: 24px;
+    }
+    .q-icon {
+      margin-right: 6px;
+    }
+  }
   &__carousel {
     .q-carousel__navigation--bottom {
       bottom: -20px;

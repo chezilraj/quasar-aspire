@@ -4,7 +4,7 @@
       <div class="cards__blance-label">Available balance</div>
       <div class="cards__blance-amount">
         <div class="blance-amount"><span>S$</span> 3,000</div>
-        <q-btn icon="icon-box" text-color="white" label="New card" />
+        <q-btn icon="icon-box" label="New card" />
       </div>
     </div>
     <CardsTab />
@@ -26,16 +26,28 @@ export default defineComponent({
 
 .cards {
   width: 100%;
-  padding: 60px 60px 90px;
+
+  @media screen and (min-width: 768px) {
+    padding: 60px 60px 90px;
+  }
 
   &__blance {
-    margin-bottom: 40px;
+    padding-bottom: 40px;
+    @media screen and (max-width: 767px) {
+      background: #0c365a;
+      padding-top: 30px;
+      padding-left: 24px;
+      padding-righ: 24px;
+    }
   }
 
   &__blance-label {
     font-size: 14px;
-    color: #222222;
+    color: #fff;
     margin-bottom: 18px;
+    @media screen and (min-width: 768px) {
+      color: #222222;
+    }
   }
 
   &__blance-amount {
@@ -47,6 +59,10 @@ export default defineComponent({
       display: flex;
       align-items: center;
       font-size: 26px;
+      color: #fff;
+      @media screen and (min-width: 768px) {
+        color: #222222;
+      }
     }
 
     span {
@@ -66,15 +82,33 @@ export default defineComponent({
   .q-btn {
     @include heading-bold;
     font-size: 13px;
-    background: #325baf;
+    color: #23cefd;
     text-transform: initial;
     max-width: 109px;
     padding: 4px 12px;
     border-radius: 4px;
 
-    .q-icon {
+    @media screen and (min-width: 768px) {
       color: #fff;
+      background: #325baf;
+      margin-right: 24px;
+    }
+
+    @media screen and (max-width: 767px) {
+      margin-right: 24px;
+    }
+
+    .q-icon {
+      color: #325baf;
       font-size: 16px;
+      @media screen and (min-width: 768px) {
+        color: #fff;
+      }
+    }
+    &:before {
+      @media screen and (max-width: 767px) {
+        box-shadow: none;
+      }
     }
   }
 }

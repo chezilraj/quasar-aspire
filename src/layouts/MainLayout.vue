@@ -1,6 +1,12 @@
 <template>
   <q-layout view="lHh lpR lFf">
-    <q-drawer show-if-above v-model="leftDrawerOpen" :width="340" side="left">
+    <q-drawer
+      show-if-above
+      v-model="leftDrawerOpen"
+      :breakpoint="1024"
+      :width="340"
+      side="left"
+    >
       <div class="q-drawer__header">
         <div class="q-drawer__header-logo">
           <q-img src="../assets/aspire-logo.svg" style="max-width: 125px" />

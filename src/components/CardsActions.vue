@@ -72,8 +72,14 @@ export default defineComponent({
   align-items: center;
   background: #edf3ff;
   padding: 20px 27px;
-  border-radius: 16px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
   height: 116px;
+  @media screen and (min-width: 768px) {
+    border-radius: 16px;
+  }
 
   &__item {
     display: flex;
