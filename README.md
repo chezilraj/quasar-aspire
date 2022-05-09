@@ -5,31 +5,14 @@ Aspire coding test a Quasar Project
 ## Install the dependencies
 
 ```bash
-yarn
-# or
-npm install
+yarn install
+
 ```
 
 ### Start the app in development mode (hot-code reloading, error reporting, etc.)
 
 ```bash
-quasar dev
-```
-
-### Lint the files
-
-```bash
-yarn lint
-# or
-npm run lint
-```
-
-### Format the files
-
-```bash
-yarn format
-# or
-npm run format
+yarn quasar dev
 ```
 
 ### Build the app for production
@@ -38,6 +21,16 @@ npm run format
 quasar build
 ```
 
-### Customize the configuration
+### Netlify APP URL
 
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-webpack/quasar-config-js).
+```bash
+https://aspire-chezilraj.netlify.app/
+```
+
+### Design & Functionalities
+
+```bash
+1. Desktop Design
+2. Mobile Design
+3. Add Card Functionality
+```
