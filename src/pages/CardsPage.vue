@@ -57,7 +57,6 @@ export default defineComponent({
   components: { CardsTab },
   created() {
     this.$store.commit('cards/addCard', cardData);
-    debugger;
   },
   setup() {
     const $store = useStore();
