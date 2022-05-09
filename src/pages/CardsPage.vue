@@ -4,20 +4,95 @@
       <div class="cards__blance-label">Available balance</div>
       <div class="cards__blance-amount">
         <div class="blance-amount"><span>S$</span> 3,000</div>
-        <q-btn icon="icon-box" label="New card" />
+        <q-btn icon="icon-box" label="New card" @click="addCardModal = true" />
       </div>
     </div>
     <CardsTab />
+    <q-dialog v-model="addCardModal">
+      <q-card class="q-pa-lg">
+        <q-card-section>
+          <div class="text-h6">Add new card</div>
+        </q-card-section>
+        <q-card-section style="max-height: 50vh" class="scroll">
+          <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
+            <q-input
+              filled
+              v-model="name"
+              label="Card name*"
+              hint="Enter your card name"
+              lazy-rules
+            />
+
+            <q-card-actions align="right">
+              <q-btn
+                label="Cancel"
+                type="reset"
+                color="primary"
+                flat
+                class="q-ml-sm"
+                v-close-popup
+              />
+              <q-btn
+                label="Add Card"
+                type="submit"
+                color="primary"
+                v-close-popup
+              />
+            </q-card-actions>
+          </q-form>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import CardsTab from 'components/CardsTab.vue';
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
+import { useStore } from 'vuex';
+import cardData from '../resources/card.json';
 
 export default defineComponent({
   name: 'CardsPage',
   components: { CardsTab },
+  created() {
+    this.$store.commit('cards/addCard', cardData);
+    debugger;
+  },
+  setup() {
+    const $store = useStore();
+    const name = ref('');
+    const cardColor = ref('#' + ((Math.random() * 0xffffff) << 0).toString(16));
+    const cardNumber = ref(
+      Math.floor(1000000000000000 + Math.random() * 9000000000000000)
+    );
+    function onSubmit() {
+      const cardObject = {
+        id: randomNumber(104, 200),
+        name: name.value,
+        card_number: cardNumber.value.toString(),
+        expiry: randomNumber(1, 30) + '/' + randomNumber(22, 30),
+        color: cardColor.value,
+      };
+      $store.commit('cards/addCard', cardObject);
+      onReset();
+    }
+
+    function onReset() {
+      name.value = '';
+    }
+
+    function randomNumber(min, max) {
+      return Math.floor(Math.random() * (max - min)) + min;
+    }
+
+    return {
+      onSubmit,
+      onReset,
+      name,
+      addCardModal: ref(false),
+    };
+  },
 });
 </script>
 
@@ -119,6 +194,11 @@ export default defineComponent({
   .q-icon {
     margin-right: 6px;
     font-size: 16px;
+  }
+}
+.q-dialog {
+  .q-card {
+    width: 400px;
   }
 }
 </style>

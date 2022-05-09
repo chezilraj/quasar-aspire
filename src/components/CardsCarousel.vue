@@ -12,108 +12,34 @@
       padding
       height="250px"
     >
-      <q-carousel-slide :name="1" class="column no-wrap">
+      <q-carousel-slide
+        v-for="(card, index) in allCards"
+        :name="index + 1"
+        class="column no-wrap"
+        :key="index"
+      >
         <div class="row justify-start items-center no-wrap">
-          <div class="card green">
+          <div class="card" :style="{ background: card.color }">
             <div class="card__logo">
               <q-icon name="icon-Aspire-Logo" />
             </div>
-            <div class="card__holder-name">Mark Henry</div>
+            <div class="card__holder-name">{{ card.name }}</div>
             <div class="card__number">
               <div class="card__number-hidden">
-                <span></span><span></span><span></span><span></span>
+                <span
+                  v-for="(num, index) in card.card_number &&
+                  card.card_number.split('')"
+                  :key="index"
+                  :class="{ 'hidden-digit': index <= 11 }"
+                >
+                  {{ num }}
+                </span>
               </div>
-              <div class="card__number-hidden">
-                <span></span><span></span><span></span><span></span>
-              </div>
-              <div class="card__number-hidden">
-                <span></span><span></span><span></span><span></span>
-              </div>
-              <div class="card__number-hidden">
-                <span></span><span></span><span></span><span></span>
-              </div>
-              2020
             </div>
             <div class="card__meta">
               <div class="card__validity">
                 <span class="label">Thru:</span>
-                <p class="info">12/20</p>
-              </div>
-              <div class="card__cvv">
-                <span class="label">CVV:</span>
-                <p class="info">***</p>
-              </div>
-            </div>
-            <div class="card__provider">
-              <q-icon name="icon-Visa-Logo" />
-            </div>
-          </div>
-        </div>
-      </q-carousel-slide>
-      <q-carousel-slide :name="2" class="column no-wrap">
-        <div class="row justify-start items-center no-wrap">
-          <div class="card blue">
-            <div class="card__logo">
-              <q-icon name="icon-Aspire-Logo" />
-            </div>
-            <div class="card__holder-name">Mark Henry</div>
-            <div class="card__number">
-              <div class="card__number-hidden">
-                <span></span><span></span><span></span><span></span>
-              </div>
-              <div class="card__number-hidden">
-                <span></span><span></span><span></span><span></span>
-              </div>
-              <div class="card__number-hidden">
-                <span></span><span></span><span></span><span></span>
-              </div>
-              <div class="card__number-hidden">
-                <span></span><span></span><span></span><span></span>
-              </div>
-              4557
-            </div>
-            <div class="card__meta">
-              <div class="card__validity">
-                <span class="label">Thru:</span>
-                <p class="info">02/23</p>
-              </div>
-              <div class="card__cvv">
-                <span class="label">CVV:</span>
-                <p class="info">***</p>
-              </div>
-            </div>
-            <div class="card__provider">
-              <q-icon name="icon-Visa-Logo" />
-            </div>
-          </div>
-        </div>
-      </q-carousel-slide>
-      <q-carousel-slide :name="3" class="column no-wrap">
-        <div class="row justify-start items-center no-wrap">
-          <div class="card pink">
-            <div class="card__logo">
-              <q-icon name="icon-Aspire-Logo" />
-            </div>
-            <div class="card__holder-name">Mark Henry</div>
-            <div class="card__number">
-              <div class="card__number-hidden">
-                <span></span><span></span><span></span><span></span>
-              </div>
-              <div class="card__number-hidden">
-                <span></span><span></span><span></span><span></span>
-              </div>
-              <div class="card__number-hidden">
-                <span></span><span></span><span></span><span></span>
-              </div>
-              <div class="card__number-hidden">
-                <span></span><span></span><span></span><span></span>
-              </div>
-              9897
-            </div>
-            <div class="card__meta">
-              <div class="card__validity">
-                <span class="label">Thru:</span>
-                <p class="info">06/26</p>
+                <p class="info">{{ card.expiry }}</p>
               </div>
               <div class="card__cvv">
                 <span class="label">CVV:</span>
@@ -131,12 +57,20 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+import { useStore } from 'vuex';
 
 export default {
   name: 'CardsCarousel',
   setup() {
+    const $store = useStore();
+    const allCards = computed({
+      get: () =>
+        $store.state.cards.allCards.filter((card) => !card.isCancelled),
+    });
+
     return {
+      allCards,
       slide: ref(1),
     };
   },
@@ -189,18 +123,6 @@ export default {
     overflow: hidden;
   }
 
-  &.green {
-    background: #01d167;
-  }
-
-  &.blue {
-    background: #536dff;
-  }
-
-  &.pink {
-    background: #c71585;
-  }
-
   &__logo {
     display: flex;
     justify-content: flex-end;
@@ -232,14 +154,19 @@ export default {
   }
   &__number-hidden {
     display: flex;
+    align-items: center;
     span {
-      width: 9px;
-      height: 9px;
-      background: #fff;
-      border-radius: 50%;
       margin-right: 6px;
-      &:last-child {
+      &:nth-child(4n) {
         margin-right: 27px;
+      }
+
+      &.hidden-digit {
+        width: 9px;
+        height: 9px;
+        background: #fff;
+        border-radius: 50%;
+        font-size: 0;
       }
     }
   }

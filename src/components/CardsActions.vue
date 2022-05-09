@@ -43,7 +43,7 @@
         card</span
       >
     </div>
-    <div class="actions__item">
+    <div class="actions__item" @click="cancelCardModal = true">
       <span class="icon icon-Deactivate-card"
         ><span class="path1"></span><span class="path2"></span
         ><span class="path3"></span
@@ -53,14 +53,38 @@
         card</span
       >
     </div>
+    <q-dialog v-model="cancelCardModal">
+      <q-card class="q-pa-lg">
+        <q-card-section>
+          <div class="text-h6">Cancel Card</div>
+        </q-card-section>
+        <q-card-section style="max-height: 50vh" class="scroll">
+          <q-form @submit="onSubmit" class="q-gutter-md">
+            <q-card-actions align="right">
+              <q-btn
+                label="Confirm"
+                type="submit"
+                color="primary"
+                v-close-popup
+              />
+            </q-card-actions>
+          </q-form>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
   name: 'CardsActions',
+  setup() {
+    return {
+      cancelCardModal: ref(false),
+    };
+  },
 });
 </script>
 <style lang="scss" scoped>
